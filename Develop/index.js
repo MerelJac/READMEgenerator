@@ -45,24 +45,32 @@ let questions = [{
 
 // TODO: Create a function to write README file
 function writeToFile(answers, data) {
-    var md = `<md><h1>File Name</h1><p>${answers.name}</p><h2>Description</h2><p>${answers.description}</p><h2>Installation</h2><p>${answers.installation}</p><h2>Usage</h2><p>${answers.usage}</p><h2>Contribution</h2><p>${answers.contribution}</p><h2>Test Instructions</h2><p>${answers.test}</p><h2>License</h2><p>${answers.license}</p><h2>Contact Information</h2><p>${answers.gitHub}</p><p>${answers.email}</p></md>`
+    let license;
+    let icon;
+    if (answers.license === 'MIT') {
+        icon = "[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)"
+        license = "MIT permissions with usage of this code, permitting users to freely use, modify, and distribute this code with limited libility.";
+    } if (answers.license === 'ISC') {
+        icon = "[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)"
+        license = "ISC permissions with usage of this code, permitting users to freely use, modify, and distribute this code with limited libility.";
+    } if (answers.license === 'zLIB') {
+        icon = "[![License: Zlib](https://img.shields.io/badge/License-Zlib-lightgrey.svg)](https://opensource.org/licenses/Zlib)"
+        license = "zLIB permissions with usage of this code, permitting users to freely use, modify, and distribude with limited libability.";
+    }
+
+    var md = `<md><h1>${answers.title}</h1><p>${icon}</p><h2>Description</h2><p>${answers.description}</p><h2>Installation</h2><p>${answers.installation}</p><h2>Usage</h2><p>${answers.usage}</p><h2>Contribution</h2><p>${answers.contribution}</p><h2>Test Instructions</h2><p>${answers.test}</p><h2>License</h2><p>${license}</p><h2>Contact Information</h2><p>[GitHub Profile](https://github.com/${answers.gitHub})</p><p>${answers.email}</p></md>`
     fs.writeFile('README.md', md, (err) => {
         err ? console.error(err) : console.log('successful')
     })
 }
 
 
-// // TODO: Create a function to initialize app
-// function init() {
-//     inquirer.createPromptModule(questions);
-// }
+// TODO: Create a function to initialize app
+function init() {
+    inquirer.prompt(questions).then((answers) => {
+        writeToFile(answers)});
+}
 
-// // Function call to initialize app
-// init();
-
-
-
-inquirer.prompt(questions).then((answers) => {
-    writeToFile(answers)
-});
+// Function call to initialize app
+init();
 
