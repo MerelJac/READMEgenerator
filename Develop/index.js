@@ -44,7 +44,7 @@ let questions = [{
 ];
 
 // TODO: Create a function to write README file
-function writeToFile(answers, data) {
+function writeToFile(answers) {
     let license;
     let icon;
     if (answers.license === 'MIT') {
